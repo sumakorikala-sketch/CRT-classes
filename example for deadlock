@@ -7,13 +7,13 @@ class Family implements Runnable
         String name=Thread.currentThread().getName();
         if(name.equals("CR")==true)
         {
-            NavyaAccquiredResource();
+            sumaAccquiredResource();
         }
         else{
-            chinnuAccquiredResource();
+            sarinAccquiredResource();
         }
     }
-    void NavyaAccquiredResource()
+    void sumaAccquiredResource()
     {
         synchronized(resource2)
         {
@@ -32,7 +32,7 @@ class Family implements Runnable
             }
         }
     }
-    void chinnuAccquiredResource()
+    void sarinAccquiredResource()
     {
         synchronized(resource1)
         {
