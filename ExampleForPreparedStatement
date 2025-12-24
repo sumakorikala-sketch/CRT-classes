@@ -1,0 +1,59 @@
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.util.Scanner;
+
+public class ExampleForPreparedStatement{
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		String jdbcurl="jdbc:mysql://localhost:3306/crt";
+		String username="root";
+		String password="suma1216";
+		Scanner s = new Scanner(System.in);
+        System.out.println("Enter the employee id");
+        int id = s.nextInt();
+        
+        System.out.println("Enter the employee name");
+        String name = s.next();
+        
+        System.out.println("Enter the employee email");
+        String email = s.next();
+
+        
+        System.out.println("Enter the employee phoneNumber");
+        String phoneNumber = s.next();
+		
+		/*int id=3;
+		String name="honey";
+		String email="honey@gmail.com";
+		String phoneNumber="8919639497";*/
+		String insert="INSERT INTO employee(id,name,email,phonenumber)values(?,?,?,?)";
+		try(Connection c = DriverManager.getConnection(jdbcurl,username,password);
+				PreparedStatement p=c.prepareStatement(insert))
+		{
+			p.setInt(1, id);
+			p.setString(2, name);
+			p.setString(3, email);
+			p.setString(4, phoneNumber);
+			int rowsAffected=p.executeUpdate();
+			if(rowsAffected>0)
+			{
+				System.out.println("Record inserted successfully");
+			}
+			else
+			{
+				System.out.println("Failed to insert the record");
+			}
+			c.close();
+			
+		}
+		catch(SQLException e)
+		{
+			e.printStackTrace();
+		}
+
+	}
+
+}
